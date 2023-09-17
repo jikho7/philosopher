@@ -8,20 +8,18 @@ int main()
 	t_philo *p;
 	int i = 0;
 
-	//gettimeofday(&info.start_time, NULL);
-	//fprintf(stderr, "start time: %ld\n", (info.start_time.tv_sec * 1000) + (info.start_time.tv_usec / 1000));
 	info.nb_of_philo = 5;
 	info.philo = malloc(sizeof(t_philo) * (info.nb_of_philo + 1)); // creation des structres.
+	fprintf(stderr, "check0\n");
 	init_philo(&info);
-
+	fprintf(stderr, "check1\n");
 	p = info.philo;
-	//fprintf(stderr, "check\n");
-	pthread_mutex_init(&info.mutex, NULL);
+	//pthread_mutex_init(&info.mutex, NULL);
 	while(info.nb_of_eating > 0)
 	{
 		while (i < info.nb_of_philo)
 		{
-			//if (pthread_create(&p[i].t, NULL, &print_id, &(p[i])) != 0)
+			//fprintf(stderr, "check\n");
 			if (pthread_create(&p[i].t, NULL, &routine, &(p[i])) != 0) // &info.philo[i].t
 				return (1);
 			i++;
@@ -37,9 +35,13 @@ int main()
 		info.nb_of_eating--;
 		fprintf(stderr, "nb of eating: %i\n", info.nb_of_eating);
 	}
-
-	pthread_mutex_destroy(&info.mutex);
-
+	//pthread_mutex_destroy(&info.mutex);
+	i = 0;
+	while(i < info.nb_of_philo)
+	{
+		pthread_mutex_destroy(&info.philo[i].philo_fork);
+		i++;
+	}
 	return 0;
 }
 

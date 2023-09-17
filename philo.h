@@ -5,21 +5,27 @@
 #include <pthread.h>
 
 #ifndef PHILO_H
-#define PHILO_Hq
+#define PHILO_H
 
+typedef struct s_left_fork
+{
+	int					taken;
+	pthread_mutex_t		*left_fork;
+}t_left_fork;
 
 /*------------- Strutures -------------*/
 typedef struct s_philo
 {
-	int				state;
-	pthread_mutex_t	right_fork;
-	pthread_mutex_t	philo_fork;
-	pthread_t		t;
-	int				last_meal;
-	int				philo_nb;
-	struct s_info	*info_p;
-	int				is_dead;
-	int				lifetime;
+	int					state;
+	struct s_left_fork	s_left_fork;
+	//pthread_mutex_t		*left_fork;
+	pthread_mutex_t		philo_fork;
+	pthread_t			t;
+	long				last_meal;
+	int					philo_nb;
+	struct s_info		*info_p;
+	int					is_dead;
+	long				death_time;
 }t_philo;
 
 typedef struct s_info
@@ -30,7 +36,6 @@ typedef struct s_info
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_of_eating;
-	int				nb;
 	pthread_mutex_t	mutex;
 	struct s_philo	*philo; // point sur NULL, simple ptr de type struct s_philo != struct philo.
 }t_info;
