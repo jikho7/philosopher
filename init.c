@@ -8,7 +8,7 @@ void init_philo(t_info *info)
 	gettimeofday(&start_time, NULL);
 	info->start_time = (start_time.tv_usec / 1000) + (start_time.tv_sec * 1000);
 	//fprintf(stderr, "start time : %ld millisecond \n", info->start_time);
-	info->time_to_die = 800;
+	info->time_to_die = 410;
 	info->time_to_eat = 200;
 	info->time_to_sleep = 200;
 	info->nb_of_eating = 5;
