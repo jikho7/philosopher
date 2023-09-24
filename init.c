@@ -12,11 +12,13 @@ void init_philo(t_info *info)
 	info->time_to_eat = 200;
 	info->time_to_sleep = 200;
 	info->nb_of_eating = 5;
+	info->ready = 0;
 	while(i < info->nb_of_philo)
 	{
 		pthread_mutex_init(&info->philo[i].philo_fork, NULL);
 		info->philo[i].state = 0;
 		info->philo[i].info_p = info;
+		info->philo[i].nb_of_meal = 0;
 		info->philo[i].last_meal = 0;
 		info->philo[i].philo_nb = i + 1;
 		info->philo[i].is_dead = 0;

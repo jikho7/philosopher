@@ -22,6 +22,7 @@ typedef struct s_philo
 	pthread_mutex_t		philo_fork;
 	pthread_t			t;
 	long				last_meal;
+	int					nb_of_meal;
 	int					philo_nb;
 	struct s_info		*info_p;
 	int					is_dead;
@@ -30,6 +31,7 @@ typedef struct s_philo
 
 typedef struct s_info
 {
+	int				ready;
 	int				nb_of_philo;
 	long			start_time;
 	long			time_to_die;
