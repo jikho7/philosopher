@@ -1,10 +1,10 @@
 NAME	= philo
 
 SRC		= 	main.c\
+			philosopher.c\
 			init.c\
 			utils.c\
 			routine_philo.c\
-			test.c\
 			errors.c\
 
 OBJ		= ${SRC:.c=.o}

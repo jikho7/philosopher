@@ -17,7 +17,6 @@ typedef struct s_left_fork
 /*------------- Strutures -------------*/
 typedef struct s_philo
 {
-	int					state;
 	struct s_left_fork	s_left_fork;
 	pthread_mutex_t		philo_fork;
 	pthread_t			t;
@@ -31,7 +30,9 @@ typedef struct s_philo
 
 typedef struct s_info
 {
+	pthread_t		main_p;
 	int				ready;
+	int				death;
 	int				nb_of_philo;
 	long			start_time;
 	long			time_to_die;
@@ -45,24 +46,32 @@ typedef struct s_info
 
 
 /*------------- Utils -------------*/
-void generate_philo(int nb_of_philo, t_philo *philo);
-void *own_fork_check(void *arg);
+void		generate_philo(t_philo *philo, t_info *info);
+void	*own_fork_check(void *arg);
+int		ft_atoi(const char *str);
 /*------------- Errors -------------*/
 
 /*------------- Routine -------------*/
-void *routine(void *arg);
-void eat(t_philo *philo);
-void* is_eating(void *arg);
-void is_sleeping(t_philo *p);
-void* is_dying(void *arg);
-void is_thinking(t_philo *p);
+void	*routine(void *arg);
+void	eat(t_philo *philo);
+void	*is_eating(void *arg);
+void	is_sleeping(t_philo *p);
+void	*is_dying(void *arg);
+void	is_thinking(t_philo *p);
 /*------------- Tests -------------*/
-void* test(void *arg);
-void* print_id(void *arg);
-void *philosopher(void *arg);
+void	*test(void *arg);
+void	*print_id(void *arg);
+int philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int nb_of_meal);
+int		ft_is_dead (t_philo *p);
 
+int		ft_len(char *s);
 
-int ft_len(char *s);
+void	init_struct(t_info *info, int die, int eat, int sleep, int meals);
+void	waiting_end_of_meal(t_philo *p);
+int		philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int nb_of_meal);
+int		destroy_thread_mutex(t_philo *p, pthread_t main);
+int		check_args(char *str);
+void	*check_death(void *arg);
 //void philosopher(int number_of_philosophers, int time_to_die, int time_to_eat, int time_to_sleep);
 
 #endif
