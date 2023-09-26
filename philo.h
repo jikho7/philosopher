@@ -43,36 +43,32 @@ typedef struct s_info
 	struct s_philo	*philo; // point sur NULL, simple ptr de type struct s_philo != struct philo.
 }t_info;
 
-
+/*------------- Philosopher -------------*/
+int		philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int nb_of_meal);
+void	generate_philo(t_philo *philo, t_info *info);
 
 /*------------- Utils -------------*/
-void		generate_philo(t_philo *philo, t_info *info);
-void	*own_fork_check(void *arg);
 int		ft_atoi(const char *str);
+
 /*------------- Errors -------------*/
+int		check_args(char *str);
 
 /*------------- Routine -------------*/
 void	*routine(void *arg);
 void	eat(t_philo *philo);
-void	*is_eating(void *arg);
 void	is_sleeping(t_philo *p);
-void	*is_dying(void *arg);
 void	is_thinking(t_philo *p);
+
 /*------------- Tests -------------*/
-void	*test(void *arg);
 void	*print_id(void *arg);
-int philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int nb_of_meal);
 int		ft_is_dead (t_philo *p);
 
 int		ft_len(char *s);
 
 void	init_struct(t_info *info, int die, int eat, int sleep, int meals);
 void	waiting_end_of_meal(t_philo *p);
-int		philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int nb_of_meal);
 int		destroy_thread_mutex(t_philo *p, pthread_t main);
-int		check_args(char *str);
 void	*check_death(void *arg);
-//void philosopher(int number_of_philosophers, int time_to_die, int time_to_eat, int time_to_sleep);
 
 #endif
 

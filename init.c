@@ -25,7 +25,7 @@ void init_struct(t_info *info, int die, int eat, int sleep, int meals)
 		info->philo[i].last_meal = 0;
 		info->philo[i].philo_nb = i + 1;
 		info->philo[i].is_dead = 0;
-		info->philo[i].death_time = 0;
+		info->philo[i].death_time = die;
 		i++;
 	}
 	i = 0;

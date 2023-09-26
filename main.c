@@ -7,6 +7,11 @@ int main(int ac, char **av)
 		printf("Not enough args.\n");
 		return (0);
 	}
+	// if (ft_atoi(av[1]) == 1)
+	// {
+	// 	printf("0 Philo[1] \033[31mdied\033[0m\n");
+	// 	return (0);
+	// }
 	if (!av[5])
 		av[5] = "100000";
 	if (check_args(av[1]) == -1 || check_args(av[2]) == -1 || check_args(av[3]) == -1 || check_args(av[4]) == -1 || check_args(av[5])== -1)

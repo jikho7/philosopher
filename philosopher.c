@@ -58,7 +58,7 @@ void *check_death(void *arg)
 			if (p->philo[i].is_dead == 1)
 			{
 				gettimeofday(&current_time, NULL);
-				fprintf(stderr, "%ld Philo[%i] \033[31mdied\033[0m\n", ((current_time.tv_usec / 1000) + (current_time.tv_sec * 1000) - p->start_time), p->philo->philo_nb);
+				printf("%ld Philo[%i] \033[31mdied\033[0m\n", ((current_time.tv_usec / 1000) + (current_time.tv_sec * 1000) - p->start_time), p->philo->philo_nb);
 				exit(0);
 			}
 			i++;
