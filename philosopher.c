@@ -9,6 +9,8 @@ int philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int
 
 	info.nb_of_philo = nb_of_philo;
 	info.philo = malloc(sizeof(t_philo) * (info.nb_of_philo)); // +1 virer, creation des structres.
+	// if (info.philo == NULL)
+	// 	return (NULL);
 	init_struct(&info, t_to_die, t_to_eat, t_to_sleep, nb_of_meal);
 	p = info.philo;
 	i = 0;
@@ -48,7 +50,6 @@ void *check_death(void *arg)
 	int i = 0;
 	t_info *p;
 	p = (t_info *)arg;
-	struct timeval current_time;
 	p->ready = 1;
 
 	while (p->ready != 2)
@@ -57,8 +58,9 @@ void *check_death(void *arg)
 		{
 			if (p->philo[i].is_dead == 1)
 			{
-				gettimeofday(&current_time, NULL);
-				printf("%ld Philo[%i] \033[31mdied\033[0m\n", ((current_time.tv_usec / 1000) + (current_time.tv_sec * 1000) - p->start_time), p->philo->philo_nb);
+				pthread_mutex_lock(&p->voice);
+				printf("%d Philo[%i] \033[31mdied\033[0m\n", get_time(p), p->philo->philo_nb);
+				pthread_mutex_unlock(&p->voice);
 				exit(0);
 			}
 			i++;
@@ -89,4 +91,14 @@ int destroy_thread_mutex(t_philo *p, pthread_t main)
 	if (pthread_join(main, NULL) != 0)
 		return (4);
 	return (0);
+}
+
+int get_time(t_info*p)
+{
+	int res;
+	struct timeval current_time;
+
+	gettimeofday(&current_time, NULL);
+	res = ((current_time.tv_usec / 1000) + (current_time.tv_sec * 1000) - p->start_time);
+	return (res);
 }

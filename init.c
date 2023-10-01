@@ -8,6 +8,7 @@ void init_struct(t_info *info, int die, int eat, int sleep, int meals)
 	struct timeval start_time;
 
 	gettimeofday(&start_time, NULL);
+	pthread_mutex_init(&info->voice, NULL);
 	info->start_time = (start_time.tv_usec / 1000) + (start_time.tv_sec * 1000);
 	info->time_to_die = die;
 	info->time_to_eat = eat;

@@ -30,6 +30,7 @@ typedef struct s_philo
 
 typedef struct s_info
 {
+	pthread_mutex_t	voice;
 	pthread_t		main_p;
 	int				ready;
 	int				death;
@@ -62,8 +63,9 @@ void	is_thinking(t_philo *p);
 /*------------- Tests -------------*/
 void	*print_id(void *arg);
 int		ft_is_dead (t_philo *p);
-
+void	print_msg(t_philo *p, int msg);
 int		ft_len(char *s);
+int 	get_time(t_info *p);
 
 void	init_struct(t_info *info, int die, int eat, int sleep, int meals);
 void	waiting_end_of_meal(t_philo *p);
