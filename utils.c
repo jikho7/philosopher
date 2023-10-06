@@ -1,4 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/06 22:29:46 by jdefayes          #+#    #+#             */
+/*   Updated: 2023/10/06 22:35:17 by jdefayes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
+
+void	wait_philo_and_modulo(t_philo *p)
+{
+	while (p->info_p->ready == 0)
+		;
+	if (p->philo_nb % 2 == 0)
+		usleep(300);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -29,13 +49,51 @@ int	ft_atoi(const char *str)
 	return (result);
 }
 
-// void* print_id(void *arg)
-// {
-// 	long id = (long)arg;
-// 	t_philo *s;
-// 	int i = 0;
+int	get_time(t_info*p)
+{
+	int				res;
+	struct timeval	cur_time;
 
-// 	s = (t_philo *)arg;
-// 	fprintf(stderr, "philo [%i] id: %ld\n", i, id);
-// 	return (0);
-// }
+	gettimeofday(&cur_time, NULL);
+	res = ((cur_time.tv_usec / 1000) + (cur_time.tv_sec * 1000)
+			- p->start_time);
+	return (res);
+}
+
+int	ft_is_dead(t_philo *p)
+{
+	int	time;
+
+	time = get_time(p->info_p);
+	if (time > p->death_time)
+	{
+		p->is_dead = 1;
+		p->info_p->death = 1;
+		return (1);
+	}
+	return (0);
+}
+
+void	print_msg(t_philo *p, int msg)
+{
+	pthread_mutex_lock(&p->info_p->voice);
+	if (p->info_p->death == 0 && msg == 0)
+		fprintf(stderr, "%d Philo[%d] has taken a fork\n",
+			get_time(p->info_p), p->philo_nb);
+	if (p->info_p->death == 0 && msg == 1)
+		printf("%d Philo[%i] \033[33mis eating\033[0m\n",
+			get_time(p->info_p), p->philo_nb);
+	if (p->info_p->death == 0 && msg == 2)
+		printf("%d Philo[%i] \033[32mis thinking\033[0m\n",
+			get_time(p->info_p), p->philo_nb);
+	if (p->info_p->death == 0 && msg == 3)
+		printf("%d Philo[%i] \033[34mis sleeping\033[0m\n",
+			get_time(p->info_p), p->philo_nb);
+	if (p->info_p->death == 0 && msg == 4)
+		printf("%d Philo[%d] has taken the second fork\n",
+			get_time(p->info_p), p->philo_nb);
+	if (p->info_p->death == 1 && msg == 5)
+		printf("%d Philo[%i] \033[31mdied\033[0m\n",
+			get_time(p->info_p), p->philo_nb);
+	pthread_mutex_unlock(&p->info_p->voice);
+}

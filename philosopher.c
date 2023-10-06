@@ -1,22 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/06 22:29:43 by jdefayes          #+#    #+#             */
+/*   Updated: 2023/10/06 22:49:57 by jdefayes         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-int philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int nb_of_meal)
+int	philosopher(int philos, int die, int eat, int sleep, int meals)
 {
-	t_info info;
-	t_philo *p;
-	pthread_t main_philo;
-	int i;
+	t_info		info;
+	t_philo		*p;
+	pthread_t	main_philo;
+	int			i;
 
-	info.nb_of_philo = nb_of_philo;
-	info.philo = malloc(sizeof(t_philo) * (info.nb_of_philo)); // +1 virer, creation des structres.
-	// if (info.philo == NULL)
-	// 	return (NULL);
-	init_struct(&info, t_to_die, t_to_eat, t_to_sleep, nb_of_meal);
+	info.nb_of_philo = philos;
+	// verif si meals ou pas
+	info.nb_of_eating = meals;
+	info.philo = malloc(sizeof(t_philo) * (info.nb_of_philo));
+	if (info.philo == NULL)
+		return (-1);
+	init_struct(&info, die, eat, sleep);
 	p = info.philo;
 	i = 0;
 	while (i < info.nb_of_philo)
 	{
-		if (pthread_create(&p[i].t, NULL, &routine, &(p[i])) != 0) // &info.philo[i].t
+		if (pthread_create(&p[i].t, NULL, &routine, &(p[i])) != 0)
 			return (1);
 		i++;
 	}
@@ -25,64 +39,62 @@ int philosopher(int nb_of_philo, int t_to_die, int t_to_eat, int t_to_sleep, int
 	waiting_end_of_meal(p);
 	destroy_thread_mutex(p, main_philo);
 	free(info.philo);
-	return 0;
+	return (0);
 }
 
-void waiting_end_of_meal(t_philo *p)
+void	waiting_end_of_meal(t_philo *p)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(1)
+	while (1)
 	{
-		while(p[i].nb_of_meal != p->info_p->nb_of_eating)
-			;
+		if (p[i].nb_of_meal == p->info_p->nb_of_eating)
+		i++;
 		if (i == p->info_p->nb_of_philo - 1)
 		{
-			break;
+			break ;
 		}
-		i++;
 	}
 }
 
-void *check_death(void *arg)
+void	*check_death(void *arg)
 {
-	int i = 0;
-	t_info *p;
+	int		i;
+	t_info	*p;
+
 	p = (t_info *)arg;
 	p->ready = 1;
-
+	i = 0;
 	while (p->ready != 2)
 	{
 		while (i < p->nb_of_philo)
 		{
 			if (p->philo[i].is_dead == 1)
 			{
-				pthread_mutex_lock(&p->voice);
-				printf("%d Philo[%i] \033[31mdied\033[0m\n", get_time(p), p->philo->philo_nb);
-				pthread_mutex_unlock(&p->voice);
+				print_msg(p->philo, 5);
 				exit(0);
 			}
 			i++;
 		}
 		i = 0;
 	}
-	return(0);
+	return (0);
 }
 
-int destroy_thread_mutex(t_philo *p, pthread_t main)
+int	destroy_thread_mutex(t_philo *p, pthread_t main)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < p->info_p->nb_of_philo)
+	while (i < p->info_p->nb_of_philo)
 	{
 		if (pthread_join(p[i].t, NULL) != 0)
 			return (3);
 		i++;
 	}
 	i = 0;
-	while(i < p->info_p->nb_of_philo)
+	while (i < p->info_p->nb_of_philo)
 	{
 		pthread_mutex_destroy(&p[i].philo_fork);
 		i++;
@@ -91,14 +103,4 @@ int destroy_thread_mutex(t_philo *p, pthread_t main)
 	if (pthread_join(main, NULL) != 0)
 		return (4);
 	return (0);
-}
-
-int get_time(t_info*p)
-{
-	int res;
-	struct timeval current_time;
-
-	gettimeofday(&current_time, NULL);
-	res = ((current_time.tv_usec / 1000) + (current_time.tv_sec * 1000) - p->start_time);
-	return (res);
 }
