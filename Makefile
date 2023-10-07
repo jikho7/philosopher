@@ -9,7 +9,7 @@ SRC		= 	main.c\
 
 OBJ		= ${SRC:.c=.o}
 
-FLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=thread
+FLAGS	= -Wall -Wextra -Werror -pthread -g #-fsanitize=thread
 
 CC		= gcc -Wall -Wextra -Werror
 

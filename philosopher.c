@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:43 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/06 22:49:57 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:13:23 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,23 @@ void	*check_death(void *arg)
 {
 	int		i;
 	t_info	*p;
+	long time;
 
 	p = (t_info *)arg;
 	p->ready = 1;
-	i = 0;
 	while (p->ready != 2)
 	{
+		i = 0;
 		while (i < p->nb_of_philo)
 		{
-			if (p->philo[i].is_dead == 1)
+			time = get_time(p);
+			if (p->philo[i].death_time == time)
 			{
 				print_msg(p->philo, 5);
 				exit(0);
 			}
 			i++;
 		}
-		i = 0;
 	}
 	return (0);
 }

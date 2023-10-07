@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:57 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/06 22:48:22 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:13:56 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_philo
 	int					nb_of_meal;
 	int					philo_nb;
 	struct s_info		*info_p;
-	int					is_dead;
+//	int					is_dead;
 	long				death_time;
 }t_philo;
 
@@ -45,7 +45,7 @@ typedef struct s_info
 	pthread_mutex_t	voice;
 	pthread_t		main_p;
 	int				ready;
-	int				death;
+//	int				death;
 	int				nb_of_philo;
 	long			start_time;
 	long			time_to_die;
