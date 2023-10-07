@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:43 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 12:13:23 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:35:46 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,11 @@ void	waiting_end_of_meal(t_philo *p)
 	int	i;
 
 	i = 0;
-	while (1)
+	while (p->info_p->death == 0)// faire mieux(1)
 	{
-		if (p[i].nb_of_meal == p->info_p->nb_of_eating)
-		i++;
+		usleep(600);
+		if (p[i].nb_of_meal == p->info_p->nb_of_eating)// !infinite &&
+			i++;
 		if (i == p->info_p->nb_of_philo - 1)
 		{
 			break ;
@@ -69,13 +70,19 @@ void	*check_death(void *arg)
 	while (p->ready != 2)
 	{
 		i = 0;
+		usleep(1000);
 		while (i < p->nb_of_philo)
 		{
 			time = get_time(p);
-			if (p->philo[i].death_time == time)
+			if (p->philo[i].death_time <= time)
 			{
-				print_msg(p->philo, 5);
-				exit(0);
+				pthread_mutex_lock(&p->voice);
+				printf("%d Philo[%i] \033[31mdied 5\033[0m\n",
+						get_time(p), p->philo->philo_nb);
+				p->death = 1;
+				pthread_mutex_unlock(&p->voice);
+				p->ready = 2;
+				break;
 			}
 			i++;
 		}

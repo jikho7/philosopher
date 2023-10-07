@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:55 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 12:14:07 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 15:36:06 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_struct(t_info *info, int die, int eat, int sleep)
 	info->time_to_eat = eat;
 	info->time_to_sleep = sleep;
 	info->ready = 0;
-//	info->death = 0;
+	info->death = 0;
 	init_philo(info);
 }
 
