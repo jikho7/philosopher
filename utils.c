@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:46 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 14:13:22 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 16:30:15 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,6 @@ int	get_time(t_info*p)
 			- p->start_time);
 	return (res);
 }
-
-// int	ft_is_dead(t_philo *p)
-// {
-// 	int	time;
-
-// 	time = get_time(p->info_p);
-// 	if (time > p->death_time)
-// 	{
-// 		p->is_dead = 1;
-// 		p->info_p->death = 1;
-// 		return (1);
-// 	}
-// 	return (0);
-// }
 
 void	print_msg(t_philo *p, int msg)
 {

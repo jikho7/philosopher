@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:48 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 15:05:49 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 17:49:15 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,20 @@ void	*routine(void *arg)
 
 	p = (t_philo *)arg;
 	wait_philo_and_modulo(p);
-	while (p->nb_of_meal != p->info_p->nb_of_eating && p->info_p->death == 0)
+	while (p->info_p->death == 0)
 	{
 		pthread_mutex_lock(&p->philo_fork);
 		print_msg(p, 0);
-		while(p->info_p->time_to_die)
+		while (p->info_p->nb_of_philo == 1)
 		{
 			if (p->info_p->death == 1)
-				return (0);
-			if (p->info_p->nb_of_philo > 1)
 			{
-				pthread_mutex_lock(p->s_left_fork.left_fork);
-				printf("%d Philo[%d] has taken the second fork\n", get_time(p->info_p), p->philo_nb);
-				break;
+				pthread_mutex_unlock(&p->philo_fork);
+				return (0);
 			}
 		}
+		pthread_mutex_lock(p->s_left_fork.left_fork);
+		print_msg(p, 4);
 		eat(p);
 		pthread_mutex_unlock(p->s_left_fork.left_fork);
 		pthread_mutex_unlock(&p->philo_fork);
@@ -43,12 +42,10 @@ void	*routine(void *arg)
 
 void	eat(t_philo *philo)
 {
-	// struct timeval	current_time;
 	long			time1;
 	long			time2;
 
 	time2 = 0;
-	// gettimeofday(&current_time, NULL);
 	print_msg(philo, 1);
 	time1 = get_time(philo->info_p);
 	philo->last_meal = get_time(philo->info_p);

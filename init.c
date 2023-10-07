@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:55 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 15:36:06 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 17:18:57 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 void	init_philo(t_info *info);
 
-void	init_struct(t_info *info, int die, int eat, int sleep)
+void	init_struct(t_info *info)
 {
 	struct timeval	start_time;
 
 	gettimeofday(&start_time, NULL);
 	pthread_mutex_init(&info->voice, NULL);
 	info->start_time = (start_time.tv_usec / 1000) + (start_time.tv_sec * 1000);
-	info->time_to_die = die;
-	info->time_to_eat = eat;
-	info->time_to_sleep = sleep;
 	info->ready = 0;
 	info->death = 0;
 	init_philo(info);
@@ -41,7 +38,6 @@ void	init_philo(t_info *info)
 		info->philo[i].nb_of_meal = 0;
 		info->philo[i].last_meal = 0;
 		info->philo[i].philo_nb = i + 1;
-	//	info->philo[i].is_dead = 0;
 		info->philo[i].death_time = info->time_to_die;
 		i++;
 	}
@@ -50,9 +46,6 @@ void	init_philo(t_info *info)
 	{
 		info->philo[i].s_left_fork.left_fork = &info->philo[(i + 1)
 			% info->nb_of_philo].philo_fork;
-		info->philo[i].s_left_fork.taken = 0;
-		info->philo[i].s_left_fork.neigh_taken = &info->philo[(i + 1)
-			% info->nb_of_philo].s_left_fork.taken;
 		i++;
 	}
 }

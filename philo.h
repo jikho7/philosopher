@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:57 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 15:35:41 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/07 18:01:49 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 typedef struct s_left_fork
 {
-	int					*neigh_taken;
-	int					taken;
 	pthread_mutex_t		*left_fork;
 }t_left_fork;
 
@@ -36,7 +34,6 @@ typedef struct s_philo
 	int					nb_of_meal;
 	int					philo_nb;
 	struct s_info		*info_p;
-//	int					is_dead;
 	long				death_time;
 }t_philo;
 
@@ -52,40 +49,35 @@ typedef struct s_info
 	long			time_to_eat;
 	long			time_to_sleep;
 	int				nb_of_eating;
-	int				infinite_meal;
 	pthread_mutex_t	mutex;
 	struct s_philo	*philo;
 }t_info;
 
 /*------------- Philosopher -------------*/
-int		philosopher(int nb_of_philo, int die, int eat, int sleep,
-			int nb_of_meal);
-void	generate_philo(t_philo *philo, t_info *info);
+int		philosopher(t_info info);
+void	waiting_end_of_meal(t_philo *p);
+void	*check_death(void *arg);
+void	death(t_info *p);
+int		destroy_thread_mutex(t_philo *p, pthread_t main);
 
 /*------------- Utils -------------*/
+void	wait_philo_and_modulo(t_philo *p);
 int		ft_atoi(const char *str);
+int		get_time(t_info *p);
+void	print_msg(t_philo *p, int msg);
 
 /*------------- Errors -------------*/
 int		check_args(char *str);
+int		check_nb_of_arg(int ac);
 
 /*------------- Routine -------------*/
 void	*routine(void *arg);
 void	eat(t_philo *philo);
+void	sleep_then_think(t_philo *p);
 void	is_sleeping(t_philo *p);
 void	is_thinking(t_philo *p);
 
-/*------------- Tests -------------*/
-void	*print_id(void *arg);
-int		ft_is_dead(t_philo *p);
-void	print_msg(t_philo *p, int msg);
-int		ft_len(char *s);
-int		get_time(t_info *p);
-
-void	init_struct(t_info *info, int die, int eat, int sleep);
-void	waiting_end_of_meal(t_philo *p);
-int		destroy_thread_mutex(t_philo *p, pthread_t main);
-void	*check_death(void *arg);
-void	wait_philo_and_modulo(t_philo *p);
-void	sleep_then_think(t_philo *p);
+/*------------- Init -------------*/
+void	init_struct(t_info *info);
 
 #endif
