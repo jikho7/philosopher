@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:43 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/08 17:40:01 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:59:21 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,14 @@ void	waiting_end_of_meal(t_philo *p)
 			usleep(600);
 			while (i < p->info_p->nb_of_philo)
 			{
-				if (ft_meals_mtx(0, p, 0, i) >= p->info_p->nb_of_eating) //(p[i].nb_of_meal >= p->info_p->nb_of_eating)
+				if (ft_meals_mtx(0, p, 0, i) >= p->info_p->nb_of_eating)
 					j++;
 				i++;
 			}
 			if (j >= p->info_p->nb_of_philo)
 			{
 				ft_death_mtx(1, p->info_p, 1);
-			//	p->info_p->death = 1;
 				ready_change(1, p->info_p, 2);
-			//	p->info_p->ready = 2;
 				break ;
 			}
 		}
@@ -76,15 +74,14 @@ void	*check_death(void *arg)
 
 	p = (t_info *)arg;
 	ready_change(1, p, 1);
-	//p->ready = 1;
-	while (ready_change(0, p, 0) != 2)//(p->ready != 2)
+	while (ready_change(0, p, 0) != 2)
 	{
 		i = 0;
 		usleep(1000);
 		while (i < p->nb_of_philo)
 		{
 			time = get_time(p);
-			if (ft_death_time_mtx(0, p->philo, 0, i) <= time)//(p->philo[i].death_time <= time)
+			if (ft_death_time_mtx(0, p->philo, 0, i) <= time)
 			{
 				death(p);
 				break ;
@@ -101,10 +98,8 @@ void	death(t_info *p)
 	printf("%d Philo[%i] \033[31mdied\033[0m\n",
 		get_time(p), p->philo->philo_nb);
 	ft_death_mtx(1, p, 1);
-	//p->death = 1;
 	pthread_mutex_unlock(&p->voice);
 	ready_change(1, p, 2);
-	//p->ready = 2;
 }
 
 int	destroy_thread_mutex(t_philo *p, pthread_t main)

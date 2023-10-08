@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:57 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/08 17:38:41 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:57:54 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	is_thinking(t_philo *p);
 /*------------- Init -------------*/
 void	init_struct(t_info *info);
 void	init_philo(t_info *info);
-int		ready_change (int option, t_info *info, int nb);
+int		ready_change(int option, t_info *info, int nb);
 int		ft_death_mtx(int option, t_info *info, int nb);
 int		ft_death_time_mtx(int option, t_philo *philo, int nb, int philo_nb);
 int		ft_meals_mtx(int option, t_philo *philo, int nb, int philo_nb);

@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:46 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/08 17:46:43 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:57:46 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	wait_philo_and_modulo(t_philo *p)
 {
-	while (ready_change(0, p->info_p, 0) == 0)//(p->info_p->ready == 0)
+	while (ready_change(0, p->info_p, 0) == 0)
 		usleep(500);
 	if (p->philo_nb % 2 == 0)
 		usleep(p->info_p->time_to_eat * 0.9 * 1000);
@@ -63,19 +63,19 @@ int	get_time(t_info*p)
 void	print_msg(t_philo *p, int msg)
 {
 	pthread_mutex_lock(&p->info_p->voice);
-	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 0)//(p->info_p->death == 0 && msg == 0)
+	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 0)
 		printf("%d Philo[%d] has taken a fork\n",
 			get_time(p->info_p), p->philo_nb);
-	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 1)//(p->info_p->death == 0 && msg == 1)
+	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 1)
 		printf("%d Philo[%i] \033[33mis eating\033[0m\n",
 			get_time(p->info_p), p->philo_nb);
-	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 2)//(p->info_p->death == 0 && msg == 2)
+	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 2)
 		printf("%d Philo[%i] \033[32mis thinking\033[0m\n",
 			get_time(p->info_p), p->philo_nb);
-	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 3)//(p->info_p->death == 0 && msg == 3)
+	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 3)
 		printf("%d Philo[%i] \033[34mis sleeping\033[0m\n",
 			get_time(p->info_p), p->philo_nb);
-	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 4)// (p->info_p->death == 0 && msg == 4)
+	if (ft_death_mtx(0, p->info_p, 0) == 0 && msg == 4)
 		printf("%d Philo[%d] has taken the second fork\n",
 			get_time(p->info_p), p->philo_nb);
 	pthread_mutex_unlock(&p->info_p->voice);

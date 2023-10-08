@@ -6,6 +6,7 @@ SRC		= 	main.c\
 			utils.c\
 			routine_philo.c\
 			errors.c\
+			mutex.c\
 
 OBJ		= ${SRC:.c=.o}
 
