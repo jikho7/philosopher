@@ -9,14 +9,17 @@ SRC		= 	main.c\
 
 OBJ		= ${SRC:.c=.o}
 
-FLAGS	= -Wall -Wextra -Werror -pthread -g #-fsanitize=thread
+CFLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=thread
 
-CC		= gcc -Wall -Wextra -Werror
+CC		= gcc
 
 all : $(NAME)
 
+%.o: %.c
+	${CC} ${CFLAGS} -o $@ -c $<
+
 $(NAME) : $(OBJ)
-	$(CC) -o $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean :
 	rm -f $(OBJ)

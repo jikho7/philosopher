@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:55 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/08 13:05:21 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:38:47 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	init_struct(t_info *info)
 
 	gettimeofday(&start_time, NULL);
 	pthread_mutex_init(&info->voice, NULL);
+	pthread_mutex_init(&info->nb_meal_mtx, NULL);
+	pthread_mutex_init(&info->ready_mtx, NULL);
+	pthread_mutex_init(&info->death_mtx, NULL);
+	pthread_mutex_init(&info->death_time_mtx, NULL);
 	info->start_time = (start_time.tv_usec / 1000) + (start_time.tv_sec * 1000);
 	info->ready = 0;
 	info->death = 0;

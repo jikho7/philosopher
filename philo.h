@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:57 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/08 13:05:16 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 17:38:41 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ typedef struct s_philo
 typedef struct s_info
 {
 	pthread_mutex_t	voice;
+	pthread_mutex_t	ready_mtx;
+	pthread_mutex_t	death_mtx;
+	pthread_mutex_t	death_time_mtx;
+	pthread_mutex_t	nb_meal_mtx;
 	pthread_t		main_p;
 	int				ready;
 	int				death;
@@ -80,5 +84,9 @@ void	is_thinking(t_philo *p);
 /*------------- Init -------------*/
 void	init_struct(t_info *info);
 void	init_philo(t_info *info);
+int		ready_change (int option, t_info *info, int nb);
+int		ft_death_mtx(int option, t_info *info, int nb);
+int		ft_death_time_mtx(int option, t_philo *philo, int nb, int philo_nb);
+int		ft_meals_mtx(int option, t_philo *philo, int nb, int philo_nb);
 
 #endif
