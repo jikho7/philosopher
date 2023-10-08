@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:48 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 17:49:15 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:56:55 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	*routine(void *arg)
 
 	p = (t_philo *)arg;
 	wait_philo_and_modulo(p);
-	while (p->info_p->death == 0)
+	while ((p->info_p->death == 0 && p->nb_of_meal < p->info_p->nb_of_eating)
+		|| (p->info_p->death == 0 && p->info_p->nb_of_eating == -1))
 	{
 		pthread_mutex_lock(&p->philo_fork);
 		print_msg(p, 0);

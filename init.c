@@ -6,13 +6,11 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:55 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 17:18:57 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 13:05:21 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	init_philo(t_info *info);
 
 void	init_struct(t_info *info)
 {

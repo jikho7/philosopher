@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:46 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 16:30:15 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/08 12:57:02 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ void	print_msg(t_philo *p, int msg)
 			get_time(p->info_p), p->philo_nb);
 	if (p->info_p->death == 0 && msg == 4)
 		printf("%d Philo[%d] has taken the second fork\n",
-			get_time(p->info_p), p->philo_nb);
-	if (p->info_p->death == 1 && msg == 5)
-		printf("%d Philo[%i] \033[31mdied 5\033[0m\n",
 			get_time(p->info_p), p->philo_nb);
 	pthread_mutex_unlock(&p->info_p->voice);
 }
