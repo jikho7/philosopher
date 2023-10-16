@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:30:10 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/07 17:55:28 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:27:10 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	main(int ac, char **av)
 	}
 	else
 		info.nb_of_eating = ft_atoi(av[5]);
+	if (ft_atoi(av[1]) == 0)
+		return (0);
 	info.nb_of_philo = ft_atoi(av[1]);
 	info.time_to_die = ft_atoi(av[2]);
 	info.time_to_eat = ft_atoi(av[3]);

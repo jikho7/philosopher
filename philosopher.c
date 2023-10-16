@@ -6,7 +6,7 @@
 /*   By: jdefayes <jdefayes@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:29:43 by jdefayes          #+#    #+#             */
-/*   Updated: 2023/10/08 17:59:21 by jdefayes         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:34:52 by jdefayes         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	waiting_end_of_meal(t_philo *p)
 
 	if (p->info_p->nb_of_eating != -1)
 	{
-		while (p->info_p->death == 0)
+		while (ft_death_mtx(0, p->info_p, 0) == 0)
 		{
 			j = 0;
 			i = 0;
